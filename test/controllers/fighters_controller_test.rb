@@ -12,7 +12,7 @@ class FightersControllerTest < ActionDispatch::IntegrationTest
 
   test "should create fighter" do
     assert_difference('Fighter.count') do
-      post fighters_url, params: { fighter: { age: @fighter.age, height: @fighter.height, name: @fighter.name, type: @fighter.type, weight: @fighter.weight } }, as: :json
+      post fighters_url, params: { fighter: { age: @fighter.age, height: @fighter.height, name: @fighter.name, type_of_fighter: @fighter.type_of_fighter, weight: @fighter.weight } }, as: :json
     end
 
     assert_response 201
@@ -24,7 +24,7 @@ class FightersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update fighter" do
-    patch fighter_url(@fighter), params: { fighter: { age: @fighter.age, height: @fighter.height, name: @fighter.name, type: @fighter.type, weight: @fighter.weight } }, as: :json
+    patch fighter_url(@fighter), params: { fighter: { age: @fighter.age, height: @fighter.height, name: @fighter.name, type_of_fighter: @fighter.type_of_fighter, weight: @fighter.weight } }, as: :json
     assert_response 200
   end
 

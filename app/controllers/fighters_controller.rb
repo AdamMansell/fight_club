@@ -46,6 +46,6 @@ class FightersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def fighter_params
-      params.require(:fighter).permit(:name, :age, :weight, :height, :type)
+      params.require(:fighter).permit(:name, :age, :weight, :height, :type_of_fighter)
     end
 end

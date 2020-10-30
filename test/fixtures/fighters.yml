@@ -5,11 +5,11 @@ one:
   age: 
   weight: 
   height: 
-  type: 
+  type_of_fighter: 
 
 two:
   name: 
   age: 
   weight: 
   height: 
-  type: 
+  type_of_fighter: 
