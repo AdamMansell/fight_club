@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: 
+  age: 
+  weight: 
+  height: 
+  type: 
+
+two:
+  name: 
+  age: 
+  weight: 
+  height: 
+  type: 
