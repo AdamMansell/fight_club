@@ -14,6 +14,11 @@ class FightersController < ApplicationController
   end
 
   # POST /fighters
+  # Fighter.create(name: '', age: 19. weight: 45, ...)
+  
+  # filgter = Fighter.new(name: '', age: 19. weight: 45, ...)
+  # fighter.save
+
   def create
     @fighter = Fighter.new(fighter_params)
 
@@ -36,6 +41,7 @@ class FightersController < ApplicationController
   # DELETE /fighters/1
   def destroy
     @fighter.destroy
+    render json: { message: 'Successfully Deleted the Fighter!' }, status: :ok
   end
 
   private
@@ -46,6 +52,10 @@ class FightersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def fighter_params
+      # { fighter: { name: '', age: 19, weight: ....} }
+      # {"fighter"=>{"name"=>"Rodtang", "age"=>"22", "weight"=>"130", "height"=>"68", "type_of_fighter"=>"Muay Thai"}}
+      # byebug
       params.require(:fighter).permit(:name, :age, :weight, :height, :type_of_fighter)
+      #  { name: '', age: 19, weight: ....}
     end
 end
