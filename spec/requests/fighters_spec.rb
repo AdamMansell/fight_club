@@ -15,8 +15,7 @@ RSpec.describe "Fighters", type: :request do
       get fighters_path
     end
 
-    it "returns http success" do
-      expect(response).to have_http_status(:success)
+    it "returns http success" do      
       expect(response).to have_http_status(200)
     end
 
@@ -30,4 +29,26 @@ RSpec.describe "Fighters", type: :request do
       expect(json_response['type_of_fighter']).to eq "Muay Thai"
     end
   end
+
+  describe "POST /fighters" do
+    context 'all required fighter attributes are present in the params' do
+      before do
+        post fighters_path, params: { fighter: { name: 'Adam', age: 21, weight: 160, height: 182, type_of_fighter: 'Muay Thai'} }
+      end
+  
+      it "returns http success" do      
+        expect(response).to have_http_status(201)
+      end
+  
+      it "JSON body response contains expected fighter attributes and their values" do
+        json_response = JSON.parse(response.body)
+        expect(json_response.keys).to match_array(%w[id name age weight height type_of_fighter created_at])
+        expect(json_response['name']).to eq 'Adam'
+        expect(json_response['age']).to eq 21
+        expect(json_response['weight']).to eq 160
+        expect(json_response['height']).to eq 182
+        expect(json_response['type_of_fighter']).to eq "Muay Thai"
+      end
+    end
+  end  
 end
