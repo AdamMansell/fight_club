@@ -96,5 +96,32 @@ RSpec.describe "Fighters", type: :request do
         expect(json_response['age']).to eq ["can't be blank"]
       end
     end    
-  end  
+  end
+
+  describe "PUT /fighters/:id" do
+    let!(:fighter) do
+      Fighter.create(
+        name: 'Adam', 
+        age: 21, 
+        weight: 160, 
+        height: 182,
+        type_of_fighter: "Muay Thai"
+      )
+    end
+
+    before do
+      put "/fighters/#{fighter.id}", params: { fighter: { name: 'Mickey Mouse', age: 105 } }
+    end
+
+    it "returns http success" do      
+      expect(response).to have_http_status(200)
+    end
+
+    it "JSON body response contains updated fighter attributes and their values" do
+      json_response = JSON.parse(response.body)
+      expect(json_response.keys).to match_array(%w[id name age weight height type_of_fighter created_at])
+      expect(json_response['name']).to eq 'Mickey Mouse'
+      expect(json_response['age']).to eq 105 
+    end      
+  end
 end
