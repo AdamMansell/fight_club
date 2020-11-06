@@ -31,7 +31,7 @@ RSpec.describe "Fighters", type: :request do
   end
 
   describe "POST /fighters" do
-    context 'all required fighter attributes are present in the params' do
+    context 'all the required fighter attributes are present in the params' do
       before do
         post fighters_path, params: { fighter: { name: 'Adam', age: 21, weight: 160, height: 182, type_of_fighter: 'Muay Thai'} }
       end
@@ -50,5 +50,21 @@ RSpec.describe "Fighters", type: :request do
         expect(json_response['type_of_fighter']).to eq "Muay Thai"
       end
     end
+
+    context 'some required fighter attributes are missing in the params' do
+      before do
+        post fighters_path, params: { fighter: { weight: 160, height: 182, type_of_fighter: 'Muay Thai'} }
+      end
+  
+      it "returns http success" do
+        expect(response).to have_http_status(422)
+      end
+  
+      it "JSON body response contains the error messages" do
+        json_response = JSON.parse(response.body)
+        expect(json_response['name']).to eq ["can't be blank"]
+        expect(json_response['age']).to eq ["can't be blank"]
+      end
+    end    
   end  
 end
