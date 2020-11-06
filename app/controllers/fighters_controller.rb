@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class FightersController < ApplicationController
-  before_action :set_fighter, only: [:show, :update, :destroy]
+  before_action :set_fighter, only: %i[show update destroy]
 
   # GET /fighters
   def index
@@ -15,7 +17,7 @@ class FightersController < ApplicationController
 
   # POST /fighters
   # Fighter.create(name: '', age: 19. weight: 45, ...)
-  
+
   # filgter = Fighter.new(name: '', age: 19. weight: 45, ...)
   # fighter.save
 
@@ -45,17 +47,18 @@ class FightersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_fighter
-      @fighter = Fighter.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def fighter_params
-      # { fighter: { name: '', age: 19, weight: ....} }
-      # {"fighter"=>{"name"=>"Rodtang", "age"=>"22", "weight"=>"130", "height"=>"68", "type_of_fighter"=>"Muay Thai"}}
-      # byebug
-      params.require(:fighter).permit(:name, :age, :weight, :height, :type_of_fighter)
-      #  { name: '', age: 19, weight: ....}
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_fighter
+    @fighter = Fighter.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def fighter_params
+    # { fighter: { name: '', age: 19, weight: ....} }
+    # {"fighter"=>{"name"=>"Rodtang", "age"=>"22", "weight"=>"130", "height"=>"68", "type_of_fighter"=>"Muay Thai"}}
+    # byebug
+    params.require(:fighter).permit(:name, :age, :weight, :height, :type_of_fighter)
+    #  { name: '', age: 19, weight: ....}
+  end
 end
