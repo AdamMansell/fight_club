@@ -124,4 +124,29 @@ RSpec.describe "Fighters", type: :request do
       expect(json_response['age']).to eq 105 
     end      
   end
+
+  describe "DELTE /fighters/:id" do
+    let!(:fighter) do
+      Fighter.create(
+        name: 'Adam', 
+        age: 21, 
+        weight: 160, 
+        height: 182,
+        type_of_fighter: "Muay Thai"
+      )
+    end
+
+    before do
+      delete "/fighters/#{fighter.id}"
+    end
+
+    it "returns http success" do      
+      expect(response).to have_http_status(200)
+    end
+
+    it "JSON body response contains successful deletion message" do
+      json_response = JSON.parse(response.body)      
+      expect(json_response['message']).to eq 'Successfully Deleted the Fighter!'      
+    end      
+  end
 end
